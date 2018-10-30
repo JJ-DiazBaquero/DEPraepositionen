@@ -29,12 +29,11 @@ d3.csv("data/verbenListe.csv", function(error, data) {
 
     praeposition = hintergrund.append("text")
         .attr("x", width/2)
-        .attr("y", height - margin.bottom)
+        .attr("y", 3*height/4)
         .attr("text-anchor", "middle")
         .attr("font-size", "32vw")
         .style("fill", "#a6bddb")
         .style("opacity", 1);
-
 
     var tree = d3.nest()
         .key(function(d) { return d.Präposition; })
@@ -82,8 +81,9 @@ d3.csv("data/verbenListe.csv", function(error, data) {
     var gFehlerZaehler = svgGraph.append("g");
     gFehlerZaehler.append("text")
         .attr("id", "Fehlerzahl")
-        .attr("x", margin.left)
+        .attr("x", 0)
         .attr("y", height)
+        .attr("dx","1em")
         .attr("font-size", "8vw")
         .style("fill", "#a6bddb")
         .attr("text-anchor", "start")
@@ -125,9 +125,57 @@ d3.csv("data/verbenListe.csv", function(error, data) {
                 d3.select("#Punktzahl")
                     .text(aktuelleGefunden+"/"+insgesamt);
 
-                worteListe  = worteListe.filter(worte => worte.wort != d.wort)
-                simulation.nodes(worteListe)
+                var siegZiehen = gZaehler.append("text")
+                    .attr("fill", "#3c763d")
+                    .attr("class","far")
+                    .attr("font-size", "8vw")
+                    .attr("dy", "-1em")
+                    .attr("dx", "-1em")
+                    .attr("x", width)
+                    .attr("y", height)
+                    .text("\uf118");
+
+                siegZiehen.transition()
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 0)
+                    .attr("transform", "translate(0,"+(-height/2)+")")
+                    .remove();
+
+                worteListe  = worteListe.filter(worte => worte.wort != d.wort);
+                simulation.nodes(worteListe);
+                simulation.force("repulsion").strength(simulation.force("repulsion").strength()-100);
                 simulation.restart();
+
+                if(aktuelleGefunden == insgesamt){
+
+                    hintergrund.append("text")
+                        .attr("id", "wahlTexte")
+                        .attr("x", width/2)
+                        .attr("y", height/2)
+                        .attr("font-size", "6vw")
+                        .attr("text-anchor", "middle")
+                        .style("fill", "black")
+                        .text("Du hast das Level beendet!");
+
+                    var nochmal = hintergrund.append("text")
+                        .attr("fill", "black")
+                        .attr("class","fas")
+                        .attr("font-size", "8vw")
+                        .attr("x", width/4)
+                        .attr("y", height)
+                        .text("\uf01e");
+
+                    var naechste = hintergrund.append("text")
+                        .attr("fill", "black")
+                        .attr("class","fas")
+                        .attr("font-size", "8vw")
+                        .attr("x", 3*width/4)
+                        .attr("y", height)
+                        .text("\uf061");
+
+                }
+
             }if(d.type == "R"){
                 fehler += 1;
                 d3.select(this).transition()
@@ -138,6 +186,24 @@ d3.csv("data/verbenListe.csv", function(error, data) {
                     .attr("transform", "translate(0)");
                 d3.select("#Fehlerzahl")
                     .text(fehler);
+
+                var fehelerZiehen = gFehlerZaehler.append("text")
+                    .attr("fill", "#a94442")
+                    .attr("class","far")
+                    .attr("font-size", "8vw")
+                    .attr("dy", "-1em")
+                    .attr("dx", "1em")
+                    .attr("x", 0)
+                    .attr("y", height)
+                    .text("\uf119");
+
+                fehelerZiehen.transition()
+                    .duration(1000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 0)
+                    .attr("transform", "translate(0,"+(-height/2)+")")
+                    .remove();
+
                 simulation.restart();
             }
         });
@@ -152,8 +218,9 @@ d3.csv("data/verbenListe.csv", function(error, data) {
         .attr("text-anchor", "middle")
         .text(function(d){return d.wort.replace(/sich|\(sich\)/g, "");})
         .style("font-family", "'Roboto', sans-serif")
+        .attr("font-size", "1.5vw")
         .style("font-weight", "bold")
-        .attr("fill", "white");
+        .attr("fill", "black");
 
     gWorteEnter.append("text")
         .attr("text-anchor", "middle")
@@ -162,9 +229,10 @@ d3.csv("data/verbenListe.csv", function(error, data) {
             if(d.wort.includes("sich")){return "sich";}
             return "";})
         .style("font-family", "'Roboto', sans-serif")
+        .attr("font-size", "1.5vw")
         .style("font-weight", "bold")
         .attr("dy", "-1em")
-        .attr("fill", "white")
+        .attr("fill", "black")
 
     var ticked = function() {
         /*aktualisieren die Simulation*/
@@ -181,7 +249,7 @@ d3.csv("data/verbenListe.csv", function(error, data) {
         .force("x", d3.forceX(x(0.5)).strength(0.1))
         .force("y", d3.forceY(y(0.5)).strength(0.1))
         .force("collide", d3.forceCollide(60))
-        .force("repulsion",d3.forceManyBody().strength(-2500))
+        .force("repulsion",d3.forceManyBody().strength(-1300))
         .on("tick",ticked);
 
 
