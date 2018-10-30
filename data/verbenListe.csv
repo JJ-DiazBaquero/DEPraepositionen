@@ -1,125 +1,186 @@
-ï»¿Verb,PrÃ¤position,Kasus
-abhÃ¤ngen,von,D
-achten,auf,A
-Ã¤ndern,an,D
-anfangen,mit,D
-sich Ã¤ngstigen,vor,D
-ankommen,auf,A
-anpassen,an,A
-antworten,auf,A
-sich Ã¤rgern,Ã¼ber,A
-aufhÃ¶ren,mit,D
-aufpassen,auf,A
-sich aufregen,Ã¼ber,A
-ausdrÃ¼cken,mit,D
-sich austauschen,mit,D
-sich austauschen,Ã¼ber,A
-sich bedanken,bei,D
-sich bedanken,fÃ¼r,A
-sich begeistern,fÃ¼r,A
-beitragen,zu,D
-berichten,Ã¼ber,A
-berichten,von,D
-sich beschÃ¤ftigen,mit,D
-sich beschweren,bei,D
-sich beschweren,Ã¼ber,A
-bestehen,aus,D
-sich bewerben,bei,D
-sich bewerben,um,A
-sich beziehen,auf,A
-bitten,um,A
-danken,fÃ¼r,A
-denken,an,A
-diskutieren,mit,D
-diskutieren,Ã¼ber,A
-sich eignen,zu,D
-sich eignen,fÃ¼r,A
-eingehen,auf,A
-einladen,zu,D
-sich engagieren,fÃ¼r,A
-sich entscheiden,gegen,A
-sich entscheiden,fÃ¼r,A
-sich entschlieÃŸen,zu,D
-sich entschuldigen,bei,D
-sich entschuldigen,fÃ¼r,A
-sich erholen,von,D
-sich erinnern,an,A
-sich erkundigen,nach,D
-sich erkundigen,bei,D
-erwarten,von,D
-erzÃ¤hlen,von,D
-fragen,nach,D
-sich freuen,auf,A
-sich freuen,Ã¼ber,A
-fÃ¼hren,zu,D
-gehÃ¶ren,zu,D
-sich gewÃ¶hnen,an,A
-glauben,an,A
-gratulieren,zu,D
-halten,an,A
-(sich) halten,fÃ¼r,A
-handeln,von,D
-sich handeln,um,A
-helfen,bei,D
-hinweisen,auf,A
-hoffen,auf,A
-sich informieren,bei,D
-sich informieren,Ã¼ber,A
-sich interessieren,fÃ¼r,A
-investieren,in,A
-kÃ¤mpfen,gegen,A
-kÃ¤mpfen,fÃ¼r,A
-sich konzentrieren,auf,A
-sich kÃ¼mmern,um,A
-lachen,Ã¼ber,A
-leiden,unter,D
-leiden,an,D
-liegen,an,D
-nachdenken,Ã¼ber,A
-protestieren,gegen,A
-reagieren,auf,A
-reden,mit,D
-reden,von,D
-reden,Ã¼ber,A
-reden,Ã¼ber,A
-reden,von,D
-schmecken,nach,D
-siegen,Ã¼ber,A
-sorgen,fÃ¼r,A
-sich sorgen,um,A
-sich spezialisieren,auf,A
-sprechen,mit,D
-sprechen,von,D
-sprechen,Ã¼ber,A
-stehen,fÃ¼r,A
-(sich) streiten,um,A
-(sich) streiten,mit,D
-(sich) streiten,Ã¼ber,A
-suchen,nach,D
-teilnehmen,an,D
-tendieren,zu,D
-sich treffen,mit,D
-sich trennen,von,D
-(sich) Ã¼berzeugen,von,D
-sich unterhalten,mit,D
-sich unterhalten,Ã¼ber,A
-sich unterscheiden,von,D
-sich unterscheiden,nach,D
-sich verabreden,mit,D
-sich verabschieden,von,D
-verbinden,mit,D
-vergleichen,mit,D
-sich verlassen,auf,A
-sich verlieben,in,A
-verstehen,von,D
-sich verstehen,mit,D
-vertrauen,auf,A
-verzichten,auf,A
-sich vorbereiten,auf,A
-warnen,vor,D
-warten,auf,A
-werben,fÃ¼r,A
-wirken,auf,A
-sich wundern,Ã¼ber,A
-zÃ¤hlen,zu,D
-zweifeln,an,D
+Verb,Präposition,Kasus,Beispiel
+achten,auf,A,Achte bei der Prüfung genau auf die Aufgabenstellung
+ankommen,auf,A,Bei einer Bewerbung koomt es nicht nur auf gute Noten an
+anpassen,an,A,Man muss sich nicht an jeden Trend anpassen
+antworten,auf,A,Hat die Firma schon auf deine Berwerbung geantwortet?
+sich ärgern,über,A,Ich habe mich heute so über meine Kollegin geärtert
+aufpassen,auf,A,Könntest du heute Abend auf meine Kinder aufpassen?
+sich aufregen,über,A,Sie regt sich über kleine Dinge auf
+ausgeben,für,A,Wie viel hast du für das Geschenk ausgegeben?
+sich austauschen,über,A,Alle Mitglieder können sich über das Forum austauschen
+sich bedanken,für,A,Wir wollten uns für das schöne Geschenk bedanken
+sich begeistern,für,A,Begeistern Sie sich für Fußball?
+sich beklagen,über,A,Der Gast hat sich ständig über das Essen beklagt
+berichten,über,A,Im Fernsehen wurde über das Ereignis kaum berichtet
+sich beschweren,über,A,Herr Müller hat sich gestern über den Lärm beschwert
+sich bewerben,als,A,Er hat sich als Event-Manager beworben
+sich bewerben,um,A,Er hat sich auf/um die Stelle als Event-Manager beworben
+sich beziehen,auf,A,Er hat sich auf/um die Stelle als Event-Manager beworben
+bitten,um,A,Könnte ich dich um einen Gefallen bitten?
+danken,für,A,Ich möchte dir für deine Unterstützung danken
+denken,an,A,Denk doch nicht immer nur an dich!
+diskutieren,über,A,Ich will nicht schon wieder über dieses Thema diskutieren
+sich eignen,für,A,Die größeren Symbole eignen sich für sehbehinderte Personen
+eingehen,auf,A,Dirk geht einfach nie auf die Meinung anderer ein
+sich einsetzen,für,A,Wir setzen uns für eine bessere Ausbildung ein
+sich einsetzen,gegen,A,Meine ganze Familie setzt sich gegen Atomenergie ein
+einziehen,in,A,Wir sind erst vor kurzem in die neue Wohnung eingezogen
+sich engagieren,für,A,Viele Leute engagieren sich für einen guten Zweck
+sich entscheiden,gegen,A,Wir haben uns für/gegen dieses Sofa entschieden
+sich entscheiden,für,A,Wir haben uns für/gegen dieses Sofa entschieden
+sich entschuldigen,für,A,Kristina hat sich heute für ihren Fehler entschuldigt
+(sich) erinnern,an,A,Erinnerst du dich an unser Gespräch neulich?
+erzählen,über,A,Was hat er denn über seinen Chef erzählt?
+sich freuen,auf,A,Ich freue mich auf unseren Ausflug am Wochenende
+sich freuen,über,A,Meine Eltern haben sich sehr über meinen Besuch gefreut
+sich gewöhnen,an,A,Ich kann mich einfach nicht an dieses Essen gewöhnen
+glauben,an,A,Seine Eltern glauben an ihn, dar macht ihm Mut
+halten,für,A,Ich halte Sie für eine sehr kompetente Fachkraft
+sich halten,an,A,Halte dich doch bitte an unsere Abmachung!
+sich handeln,um,A,Hier handelt es sich um eine seltene Pflanze
+hinweisen,auf,A,Ich möchte Sie noch auf unsere Sonderangebote hinweisen
+hoffen,auf,A,Wir haben lange auf besseres Wetter gehofft
+(sich) informieren,über,A,Vor seiner Bewerbung hat er sich über die Firma informiert
+sich interessieren,für,A,Maren interessiert sich sehr für Tiere und Naturschutz
+investieren,in,A,Das Unternehmen hat viel Geld in dieses Projekt investiert
+kämpfen,gegen,A,Sie kämpfen gegen Umweltverschmutzung
+kämpfen,für,A,Sie kämpfen für eine saubere Umwelt
+sich konzentrieren,auf,A,Seid leiser! Ich muss mich auf die Aufgabe konzentrieren
+sich kümmern,um,A,Wer kümmert sich um den Hund, wenn wir weg sind?
+lachen,über,A,Über diesen Witz kann ich echt überhaupt nicht lachen
+nachdenken,über,A,Ich denke über dein Angebot nach und gebe dir Bescheid
+protestieren,gegen,A,Sie protestieren gegen Steuergesetze
+reagieren,auf,A,Wie hat dein Chef eigentlich auf deinen Vorschlag reagiert?
+reden,über,A,Wir haben lange über das Problem geredet
+schimpfen,über,A,Er schimpft den ganzen Abend über seine Kollegen
+siegen,über,A,Das Team aus der Serie A begann mit Siegen über den FC PAOK
+sorgen,für,A,Olaf will für seine kranken Eltern sorgen
+sich sorgen,um,A,Katja sorgt sich oft zu sehr um ihre berufliche Zukunft
+sich spezialisieren,auf,A,Er hat sich während des Studiums auf Chirurgie spezialisiert
+sprechen,über,A,Habt ihr auch über die Arbeitsbedingungen gesprochen?
+stehen,für,A,Wir stehen für Qualität, Kompetenz und Zuverlässigkeit
+(sich) streiten,um,A,Im Beziehungen wird oft um Geld gestritten
+(sich) streiten,über,A,Streitet ihr schon wieder über die gleiche Frage?
+sich unterhalten,über,A,Wir haben uns den ganzen Abend über Politik unterhalten
+sich verlassen,auf,A,Auf meinen besten Freund kann ich mich immer verlassen
+sich verlieben,in,A,Nina hat sich schon während der Schulzeit in Paul verliebt
+vertrauen,auf,A,Viele Branchen vertrauen auf unsere Qualitätsprodukte
+verzichten,auf,A,Ich kann am Morgen einfach nicht auf Kaffee verzichten
+sich vorbereiten,auf,A,Hast du dich gut auf das Vorstellunggespräch vorbereitet?
+warten,auf,A,Auf wen wartest du denn?
+sich wenden,an,A,Wenden Sie sich bitte an Herrn Kohl
+werben,für,A,Die Firma wirbt für ihre Produkte
+wetten,um,A,Wir haben um ein Abendessen gewettet
+wirken,auf,A,Beide wirken auf einen Behälter aus reiner Kunststofffolie
+sich wundern,über,A,Ich habe mich sehr über diese Frage gewundert
+abhalten,von ,D,Ich konnte ihn nicht von seinem Vorhaben abhalten
+abhängen,von,D,Der Klimawandel hängt auch von unserem Verhalten ab
+abmelden,von,D,Hast du dich wirklich vom Sportstudio abgemeldet?
+abraten,von,D,Ich kann euch von diesem Restaurant nur abraten
+ändern,an,D,Bert sagt, dass er an der Situation nicht ändern kann
+anfangen,mit,D,Er hat mit dem Tanzkurs angefangen
+anrufen,bei,D,Hast du bei unserem Vermieter angerufen?
+arbeiten,an,D,Sie arbeiten an einem großen Projekt
+arbeiten,bei,D,Er arbeitet bei BMW
+arbeiten,in,D,Sie arbeitet in einer großen Firma
+sich ängstigen,vor,D,Seine Kinder ängstigen sich vor seinen plötzlichen Wutanfällen
+aufhören,mit,D,Kinder, könnt ihr bitte mit dem Lärm aufhören?
+ausgehen,von,D,Ich gehe davon aus, dass wir uns morgen wiedersehen
+sich auskennen,mit,D,Er kennt sich gut mit moderner Technik aus
+ausdrücken,mit,D,mit einem Symbol ausdrücken
+sich austauschen,mit,D,Im Forum kann sich Tom mit anderen Betroffenen austauschen
+sich bedanken,bei,D,Ich muss mich unbedingt bei dir bedanken
+sich befassen,mit,D,Der Film befasst sich mit traditioneller Musik
+sich befinden,in,D,Wir befinden uns hier im Zentrum von Hamburg
+beginnen,mit,D,Wann beginnst du mit dem Deutschkurs?
+beitragen,zu,D,Möchtest du auch etwas zu dieser Diskussion beitragen?
+sich beklagen,bei,D,Unsere Nachbarin hat sich wieder beim Vermieter beklagt
+berichten,von,D,Matthias berichtet immer sehr ausführlich von seinen Reisen
+sich beschäftigen,mit,D,Studien beschäftigen sich mit der Quantifizierung von Wasser
+sich beschweren,bei,D,Herr Müller hat sich bei der Hausverwaltung beschwert
+bestehen,aus,D,Diese Schokolade besteht hauptsächlich aus Kakao
+bestellen,bei,D,Habt ihr die Lieferung bei Herrn Krömer bestellt?
+sich beteiligen,an,D,Habt ihr euch an der Demo gestern beteiligt?
+sich bewerben,bei,D,Susanne hat sich bei einer Software-Firma beworben
+bringen,zu,D,Er bringt mich immer zum Lachen
+diskutieren,mit,D,Wir haben lange mit unserem Vermieter diskutiert
+sich eignen,zu,D,zu gegrilltem Fleisch eignen sich süffige Weine besser
+einladen,zu,D,Ich würde dich gern zu meiner Party einladen
+(sich) entfernen,von,D,Der Taucher hat sich weit von der Küste entfernt
+sich entschließen,zu,D,Kristina hat sich zu einem Fernstudium entschlossen
+sich entschuldigen,bei,D,Kristina hat sich heute bei mir entschuldigt
+erhalten,von,D,Haben Sie die Nachricht von Frau Krause erhalten?
+sich erholen,von,D,Sie hat sich gut von der Krankheit erholt
+erkennen,an,D,Ich erkenne ihn an seiner Stimme
+sich erkundigen,nach,D,Ich habe mich bei/nach der VHS nach Kursen erkundigt
+sich erkundigen,bei,D,Ich habe mich bei/nach der VHS nach Kursen erkundigt
+erwarten,von,D,Was erwartest du von diesem Kurs?
+erzählen,von,D,Erzähl doch mal was von deiner Familie!
+erziehen,zu,D,Sie haben ihre Kinder früh zur Selbstständigkeit erzogen
+experimentieren,mit,D,Habt ihr mit Wasser experimentiert
+fragen,nach,D,Wo warst du? Max hat schon dreimal nach dir gefragt
+führen,zu,D,Der Klimawandel führt zu immer mehr Unwettern
+gehören,zu,D,Zu welcher Projektgruppe gehörst du?
+gratulieren,zu,D,Ich möchte dir zu deinem guten Prüfungsergebnis gratulieren
+greifen,nach,D,Er greift nach dem Treppengeländer
+handeln,mit,D,Die Firma handelt mit Schmuck
+handeln,von,D,Das Buch handelt von drei Freunden
+halten,von,D,Was hälst du von dem neuen Büro?
+helfen,bei,D,Könntest du mir bitte beim Aufräumen helfen?
+hören,von,D,Hast du mal was von Tina und Moritz gehört?
+klarkommen,mit,D,Sie kommt sehr gut mit ihren Kolleginnen klar
+klingen,nach,D,Das klingt nach einem tollen Film
+sich informieren,bei,D,Kunden informieren sich nicht nur direkt bei den Anbieter
+leiden,an,D,Er leidet an Asthma
+leiden,unter,D,Er leidet unter Schlaflosigkeit
+liegen,an,D,Es liegt an seinem Ehrgeiz, dass er so weit gekommen ist
+sich melden,bei,D,Meldest du dich morgen bei mir?
+motivieren,zu,D,Kann ich dich heute zum Joggen motivieren?
+nachfragen,bei,D,Dein Paket ist nicht da? Hast du schon bei der Poststelle nachgefragt?
+naschen,von,D,Wer hat von dem Kuchen genascht?
+sich orientieren,an,D,Er hat sich an seinen Vorbildern orientiert
+passen,zu,D,Der Pulli passt gut zu der Hose
+raten,zu,D,Ich rate dir zu einem Arztbesuch
+(sich) retten,vor,D,Alle haben sich vor dem Feuer gerettet
+sich richten,nach,D,Ich richte mich da ganz nach dir
+schimpfen,mit,D,Er schimpft den ganzen Tag mit seinem Hund
+reden,mit,D,gehen sie umher und reden mit den Menschen
+reden,von,D,Wir reden von Autos und Technik
+schmecken,nach,D,Die Schokolade schmeckt nach Nougat
+speichern,auf,D,Du solltest die Datei auf einer externen Festplatte speichern
+sprechen,mit,D,Kann ich mal kurz mit dir sprechen?
+sprechen,von,D,Adrian hat den ganzen Abend nur von dir gesprochen
+sterben,an,D,Mein Opa ist letztes Jahr an Krebs gestorben
+(sich) streiten,mit,D,Ich habe mich gestern mit meinem Freund gestritten
+suchen,nach,D,Viele Menschen suchen nach dem Sinn des Lebens. 
+teilnehmen,an,D,Nimmst du auch am nächsten Kurs teil?
+telefonieren,mit,D,Ich habe gerade mit der Personalabteilung telefoniert
+träumen,von,D,Ich träume von nächsten Urlaub
+tendieren,zu,D,Moderne Technologien tendieren zu Unsichtbarkeit
+sich treffen,mit,D,Nach dem Kurs treffe ich mich noch mit Rosalie
+(sich) trennen,von,D,Sie hat sich von ihrem alten Auto getrennt
+überreden,zu,D,Ich habe sie zu einem Ausflug überredet
+überzeugen,von,D,Versuch nicht, mich vom Gegenteil zu überzeugen
+umgehen,mit,D,Kannst du gut mit dem neuen Programm umgehen?
+unterbrechen,bei,D,Meine Kinder unterbrechen mich ständig beim Telefonieren
+sich unterhalten,mit,D,Gestern habe ich mich lange mit meinem Chef unterhalten
+sich unterscheiden,von,D,Ein Pony unterscheidet sich deutlich von einem Pferd
+sich unterscheiden,nach,D,Sie unterscheiden sich nach der Art ihrer Konstruktion
+unterstützen,bei,D,Kannst du mich bei dem Projekt unterstützen?
+sich verabreden,mit,D,Ich würde mich gern mal mit ihr verabreden
+sich verabschieden,von,D,Die Gäste haben sich von uns verabschiedet
+verbinden,mit,D,"Was verbindest du mit dem Begriff „Freundschaft""?"
+vergleichen,mit,D,Man kann Äpfel nicht mit Birnen vergleichen
+verlangen,von,D,Was verlangst du von mir?
+(sich) verstecken,vor,D,Er versteckt sich vor ihr
+sich verstehen,mit,D,Valentin versteht sich sehr gut mir seinen Eltern
+vorbeikommen,bei,D,Kommt ihr nachher noch bei uns vorbei?
+vorkommen,bei,D,Das kommt bei meinem Computer öfter vor, dass er abstürzt
+vortragen,vor,D,Er hat das Gedicht vor über 10 Leuten vorgetragen
+weglaufen,vor,D,Die Tiere laufen vor dem Feuer weg
+sich wünschen,von,D,Simon wünscht sich von mir ein Buch
+zurückkommen,von,D,Gestern ist mein Bruder von einer langen Reise zurückgekommen
+warnen,vor,D,Andere Klimaforscher warnen vor weiteren Nebenwirkungen
+zählen,zu,D,Walter zählt zu den besten Studenten der Universität
+zweifeln,an,D,Zweifelst du an seiner Ehrlichkeit?
+zwingen,zu,D,Niemand kann dich zu dieser Prüfung zwingen
