@@ -12,7 +12,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
     hintergrund.append("rect")
         .attr("width", width+ margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .style("fill", "#ece2f0");
+        .attr("class", "colBackground");
 
     hintergrund.append("rect")
         .attr("x", margin.left)
@@ -32,7 +32,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         .attr("y", 3*height/4)
         .attr("text-anchor", "middle")
         .attr("font-size", "32vw")
-        .style("fill", "#a6bddb")
+        .attr("class", "colText")
         .style("opacity", 1);
 
     var tree = d3.nest()
@@ -73,7 +73,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         .attr("y", height)
         .attr("font-size", "8vw")
         .attr("text-anchor", "end")
-        .style("fill", "#a6bddb")
+        .attr("class", "colText")
         .text(aktuelleGefunden +"/" + insgesamt)
 
     var gFehlerZaehler = svgGraph.append("g");
@@ -83,7 +83,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         .attr("y", height)
         .attr("dx","1em")
         .attr("font-size", "8vw")
-        .style("fill", "#a6bddb")
+        .attr("class", "colText")
         .attr("text-anchor", "end")
         .text(fehler);
 
@@ -203,8 +203,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
 
         gWorteEnter.append("circle")
             .attr("r",60)
-            .attr("class",function(d,i){return "circle "+i;})
-            .style("fill", "#1c9099")
+            .attr("class",function(d,i){return "circle "+i+ " colFigures";})
             .style("opacity", 0.7);
 
         gWorteEnter.append("text")
@@ -257,7 +256,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .attr("y", height/4)
             .attr("font-size", "6vw")
             .attr("text-anchor", "middle")
-            .style("fill", "black")
+            .attr("class", "colText")
             .text("Du hast das Level beendet!");
 
         var nochmal = gEndLevel.append("text")
@@ -274,9 +273,9 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                 praeposition = hintergrund.append("text")
                     .attr("x", width/2)
                     .attr("y", 3*height/4)
+                    .attr("class", "colText")
                     .attr("text-anchor", "middle")
                     .attr("font-size", "32vw")
-                    .style("fill", "#a6bddb")
                     .style("opacity", 1)
                     .text(praepositionenArr[gewaehltPraep]);
 
@@ -315,6 +314,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .style("font-family", "'Roboto', sans-serif")
             .attr("x", (width+margin.right+margin.left)/2)
             .attr("text-anchor", "middle")
+            .attr("class", "colText")
             .style("opacity", 0.5)
             .attr("y", height)
             .text("Klick auf ein Verb, um eine Beispiel zu zeigen");
