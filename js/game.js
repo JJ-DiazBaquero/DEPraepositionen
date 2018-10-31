@@ -57,6 +57,11 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
     var richtigeWorte = getRandomSubarray(richtigeWorteListe, Math.floor(nummerWorteBild*prozentRichtig));
     var worteListe = data.map(function(d){ return d});
     var falscheWorteList = diff(worteListe, richtigeWorteListe);
+
+    console.log(worteListe)
+    console.log(richtigeWorteListe)
+    console.log("oeoeo")
+    console.log(falscheWorteList)
     var falscheWorte = getRandomSubarray(falscheWorteList, Math.ceil(nummerWorteBild*(1-prozentRichtig)));
 
     worteListe = richtigeWorte.map(function(d){ return {wort: d.Verb, type: "R", beispiel: d.Beispiel, kasus: d.Kasus}});

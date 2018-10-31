@@ -10,8 +10,9 @@ function getRandomSubarray(arr, size) {
 }
 
 function diff(A, B) {
+    B = B.map(function(d){return d.Verb});
     return A.filter(function (a) {
-        return B.indexOf(a) == -1;
+        return B.indexOf(a.Verb) == -1;
     });
 }
 
