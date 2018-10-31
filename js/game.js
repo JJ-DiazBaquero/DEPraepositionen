@@ -4,7 +4,7 @@ var svgGraph = d3.select("#graph"),
     width = svgGraph.node().getBoundingClientRect().width - margin.left - margin.right,
     height = svgGraph.node().getBoundingClientRect().height - margin.top - margin.bottom;
 
-d3.csv("data/verbenListe.csv", function(error, data) {
+d3.tsv("data/verbenListe.txt", function(error, data) {
     if (error) throw error;
 
     var hintergrund = svgGraph.append("g");
@@ -39,26 +39,28 @@ d3.csv("data/verbenListe.csv", function(error, data) {
         .key(function(d) { return d.Präposition; })
         .map(data);
 
+    console.log(tree)
+
     //praepositionenArr = tree.map(function(d){ return d.key})
-    praepositionenArr = tree.keys()
+    praepositionenArr = tree.keys();
 
     // Wahl ein präposition
     var gewaehltPraep = Math.random() * praepositionenArr.length | 0;
     praeposition.text(praepositionenArr[gewaehltPraep]);
 
     // Add circles
-    var nummerWorteBild = 10;
+    var nummerWorteBild = 6;
     var prozentRichtig = 0.4;
 
     // die worte wählen
-    var richtigeWorteListe = tree["$"+praepositionenArr[gewaehltPraep]].map(function(d){return d.Verb});
+    var richtigeWorteListe = tree["$"+praepositionenArr[gewaehltPraep]].map(function(d){return d});
     var richtigeWorte = getRandomSubarray(richtigeWorteListe, Math.floor(nummerWorteBild*prozentRichtig));
-    var worteListe = data.map(function(d){ return d.Verb});
+    var worteListe = data.map(function(d){ return d});
     var falscheWorteList = diff(worteListe, richtigeWorteListe);
     var falscheWorte = getRandomSubarray(falscheWorteList, Math.ceil(nummerWorteBild*(1-prozentRichtig)));
 
-    worteListe = richtigeWorte.map(function(d){ return {wort: d, type: "R"}});
-    worteListe = worteListe.concat(falscheWorte.map(function(d){ return {wort: d, type: "F"}}));
+    worteListe = richtigeWorte.map(function(d){ return {wort: d.Verb, type: "R", beispiel: d.Beispiel, kasus: d.Kasus}});
+    worteListe = worteListe.concat(falscheWorte.map(function(d){ return {wort: d.Verb, type: "F", beispiel: d.Beispiel, kasus: d.Kasus}}));
     console.log(worteListe);
 
     worteListe = shuffle(worteListe);
@@ -86,7 +88,7 @@ d3.csv("data/verbenListe.csv", function(error, data) {
         .attr("dx","1em")
         .attr("font-size", "8vw")
         .style("fill", "#a6bddb")
-        .attr("text-anchor", "start")
+        .attr("text-anchor", "end")
         .text(fehler);
 
     var x = d3.scaleLinear()
@@ -125,7 +127,7 @@ d3.csv("data/verbenListe.csv", function(error, data) {
                 d3.select("#Punktzahl")
                     .text(aktuelleGefunden+"/"+insgesamt);
 
-                var siegZiehen = gZaehler.append("text")
+                var siegZiehen = svgGraph.append("text")
                     .attr("fill", "#3c763d")
                     .attr("class","far")
                     .attr("font-size", "8vw")
@@ -148,32 +150,7 @@ d3.csv("data/verbenListe.csv", function(error, data) {
                 simulation.restart();
 
                 if(aktuelleGefunden == insgesamt){
-
-                    hintergrund.append("text")
-                        .attr("id", "wahlTexte")
-                        .attr("x", width/2)
-                        .attr("y", height/2)
-                        .attr("font-size", "6vw")
-                        .attr("text-anchor", "middle")
-                        .style("fill", "black")
-                        .text("Du hast das Level beendet!");
-
-                    var nochmal = hintergrund.append("text")
-                        .attr("fill", "black")
-                        .attr("class","fas")
-                        .attr("font-size", "8vw")
-                        .attr("x", width/4)
-                        .attr("y", height)
-                        .text("\uf01e");
-
-                    var naechste = hintergrund.append("text")
-                        .attr("fill", "black")
-                        .attr("class","fas")
-                        .attr("font-size", "8vw")
-                        .attr("x", 3*width/4)
-                        .attr("y", height)
-                        .text("\uf061");
-
+                    level1Beendet();
                 }
 
             }if(d.type == "R"){
@@ -187,7 +164,8 @@ d3.csv("data/verbenListe.csv", function(error, data) {
                 d3.select("#Fehlerzahl")
                     .text(fehler);
 
-                var fehelerZiehen = gFehlerZaehler.append("text")
+                // Trauriges Gesicht
+                var fehelerZiehen = svgGraph.append("text")
                     .attr("fill", "#a94442")
                     .attr("class","far")
                     .attr("font-size", "8vw")
@@ -198,10 +176,30 @@ d3.csv("data/verbenListe.csv", function(error, data) {
                     .text("\uf119");
 
                 fehelerZiehen.transition()
-                    .duration(1000)
+                    .duration(2000)
                     .ease(d3.easeLinear)
                     .style("opacity", 0)
                     .attr("transform", "translate(0,"+(-height/2)+")")
+                    .remove();
+
+                if(!d3.select("#zBLevel1").empty()){
+                    d3.select("#zBLevel1").remove()
+                }
+
+                // Zeihgen Beispiel
+                var beispiel = svgGraph.append("text")
+                    .attr("fill", "#a94442")
+                    .attr("id", "zBLevel1")
+                    .attr("font-size", "3vw")
+                    .attr("x", (width+margin.right+margin.left)/2)
+                    .attr("text-anchor", "middle")
+                    .attr("y", height)
+                    .text("z.B."+ d.beispiel);
+
+                beispiel.transition()
+                    .duration(8000)
+                    .ease(d3.easeLinear)
+                    .style("opacity", 0)
                     .remove();
 
                 simulation.restart();
@@ -212,7 +210,7 @@ d3.csv("data/verbenListe.csv", function(error, data) {
         .attr("r",60)
         .attr("class",function(d,i){return "circle "+i;})
         .style("fill", "#1c9099")
-        .style("opacity", 0.95);
+        .style("opacity", 0.7);
 
     gWorteEnter.append("text")
         .attr("text-anchor", "middle")
@@ -246,11 +244,69 @@ d3.csv("data/verbenListe.csv", function(error, data) {
     };
 
     var simulation = d3.forceSimulation(worteListe)
-        .force("x", d3.forceX(x(0.5)).strength(0.1))
-        .force("y", d3.forceY(y(0.5)).strength(0.1))
+        .force("x", d3.forceX(x(0.5)).strength(0.05))
+        .force("y", d3.forceY(y(0.5)).strength(0.05))
         .force("collide", d3.forceCollide(60))
         .force("repulsion",d3.forceManyBody().strength(-1300))
         .on("tick",ticked);
 
+    var level1Beendet = function(){
+
+        praeposition.remove();
+        gWorteEnter.remove();
+
+        var gEndLevel = svgGraph.append("g");
+        var titel = gEndLevel.append("text")
+            .attr("id", "wahlTexte")
+            .attr("x", width/2)
+            .attr("y", height/4)
+            .attr("font-size", "6vw")
+            .attr("text-anchor", "middle")
+            .style("fill", "black")
+            .text("Du hast das Level beendet!");
+
+        var nochmal = gEndLevel.append("text")
+            .attr("fill", "black")
+            .attr("class","fas")
+            .attr("font-size", "8vw")
+            .attr("x", width/6)
+            .attr("y", 2*height/3)
+            .text("\uf01e");
+
+        var naechste = gEndLevel.append("text")
+            .attr("fill", "black")
+            .attr("class","fas")
+            .attr("font-size", "8vw")
+            .attr("x", 5*width/6)
+            .attr("y", 2*height/3)
+            .text("\uf061");
+
+        var beispiel = svgGraph.append("text")
+            .attr("id", "zBLevel1")
+            .attr("font-size", "3vw")
+            .style("font-family", "'Roboto', sans-serif")
+            .attr("x", (width+margin.right+margin.left)/2)
+            .attr("text-anchor", "middle")
+            .style("opacity", 0.5)
+            .attr("y", height)
+            .text("Klick auf ein Verb, um eine Beispiel zu zeigen");
+
+        var gWorte = gEndLevel.selectAll("text.worte")
+            .data(richtigeWorte).enter()
+            .append("text")
+            .attr("class", "worte far")
+            .attr("font-size", "3vw")
+            .style("font-family", "'Roboto', sans-serif")
+            .attr("text-anchor", "middle")
+            .attr("dy", function(d,i){return "-"+2*i+"em"})
+            .attr("x", (width+margin.right)/2)
+            .attr("y", height/2)
+            .text(function(d){return d.Verb +" "+ praepositionenArr[gewaehltPraep]+" + "+d.Kasus})
+            .on("click", function (d) {
+                beispiel.text("z.B."+ d.Beispiel)
+                    .style("opacity", 1);
+            });
+
+    }
 
 });
