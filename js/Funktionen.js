@@ -9,10 +9,16 @@ function getRandomSubarray(arr, size) {
     return shuffled.slice(0, size);
 }
 
-function diff(A, B) {
+function diffVerb(A, B) {
     B = B.map(function(d){return d.Verb});
     return A.filter(function (a) {
         return B.indexOf(a.Verb) == -1;
+    });
+}
+
+function diff(A, B) {
+    return A.filter(function (a) {
+        return B.indexOf(a) == -1;
     });
 }
 

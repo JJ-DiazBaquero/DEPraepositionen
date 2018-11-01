@@ -54,7 +54,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
     var richtigeWorteListe = tree["$"+praepositionenArr[gewaehltPraep]].map(function(d){return d});
     var richtigeWorte = getRandomSubarray(richtigeWorteListe, Math.floor(nummerWorteBild*prozentRichtig));
     var worteListe = data.map(function(d){ return d});
-    var falscheWorteList = diff(worteListe, richtigeWorteListe);
+    var falscheWorteList = diffVerb(worteListe, richtigeWorteListe);
     var falscheWorte = getRandomSubarray(falscheWorteList, Math.ceil(nummerWorteBild*(1-prozentRichtig)));
 
     worteListe = richtigeWorte.map(function(d){ return {wort: d.Verb, type: "R", beispiel: d.Beispiel, kasus: d.Kasus}});
@@ -282,7 +282,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                 richtigeWorteListe = tree["$"+praepositionenArr[gewaehltPraep]].map(function(d){return d});
                 richtigeWorte = getRandomSubarray(richtigeWorteListe, Math.floor(nummerWorteBild*prozentRichtig));
                 worteListe = data.map(function(d){ return d});
-                falscheWorteList = diff(worteListe, richtigeWorteListe);
+                falscheWorteList = diffVerb(worteListe, richtigeWorteListe);
                 falscheWorte = getRandomSubarray(falscheWorteList, Math.ceil(nummerWorteBild*(1-prozentRichtig)));
 
                 worteListe = richtigeWorte.map(function(d){ return {wort: d.Verb, type: "R", beispiel: d.Beispiel, kasus: d.Kasus}});
@@ -306,7 +306,13 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .attr("font-size", "8vw")
             .attr("x", 5*width/6)
             .attr("y", 2*height/3)
-            .text("\uf061");
+            .text("\uf061")
+            .on("click", function(){
+                gEndLevel.remove();
+                gZaehler.remove();
+                gFehlerZaehler.remove();
+                buildLevel2();
+            });
 
         var beispiel = gEndLevel.append("text")
             .attr("id", "zBLevel1")
@@ -334,7 +340,253 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                 beispiel.text("z.B."+ d.Beispiel)
                     .style("opacity", 1);
             });
+    };
 
+    function buildLevel2(){
+        var gHintergrund = svgGraph.append("g");
+        var gWort = svgGraph.append("g");
+        var istLinksRichtig;
+        var currentWort;
+        var enter;
+        var zahlFehler = 0;
+
+        gHintergrund.append("rect")
+            .attr("class", "leftSide")
+            .attr("width",width/2 + margin.left)
+            .attr("height",height + margin.top + margin.bottom)
+            .on("click", function(){
+                if(istLinksRichtig){
+                    showHappySmiley(true, this);
+                    showAnswer(false)}
+                else{
+                    showSadSmiley(true, this);
+                    zahlFehler += 1;
+                    showAnswer(true);
+                    }
+            });
+
+        gHintergrund.append("rect")
+            .attr("class", "rightSide")
+            .attr("x", width/2 + margin.left)
+            .attr("width",width/2 + margin.right)
+            .attr("height",height + margin.top + margin.bottom)
+            .on("click", function(){
+                if(!istLinksRichtig){
+                    showHappySmiley(false, this);
+                    showAnswer(true)}
+                else{showSadSmiley(false, this);
+                    zahlFehler += 1;
+                    showAnswer(false);
+                }
+            });
+
+        var treeVerben = d3.nest()
+            .key(function(d) { return d.Verb; })
+            .map(data);
+
+        var treePraepositionen = d3.nest()
+            .key(function(d) { return d.Präposition+" + "+d.Kasus; })
+            .map(data);
+
+        var zahlWorte = 5;
+        var verbenArr = treeVerben.keys();
+        var worteList = getRandomSubarray(verbenArr, verbenArr.length);
+        console.log(tree);
+
+        var praepositionenUndKasusArr = treePraepositionen.keys();
+
+        // Wahl ein wort
+        function neueWort(wort){
+
+            var linkerText = gHintergrund.append("text")
+                .attr("x", 0)
+                .attr("y", 3*height/4)
+                .attr("text-anchor", "start")
+                .attr("font-size", "10vw")
+                .style("fill", "black")
+                .style("opacity", 0.7);
+
+            var rechterText = gHintergrund.append("text")
+                .attr("x", width + margin.left + margin.right)
+                .attr("y", 3*height/4)
+                .attr("class", "middle")
+                .attr("text-anchor", "end")
+                .attr("font-size", "10vw")
+                .style("fill", "black")
+                .style("opacity", 0.7);
+
+            svgGraph.append("text")
+                .attr("id", "Fehlerzahl")
+                .attr("x", 0)
+                .attr("y", height)
+                .attr("dx","1em")
+                .attr("font-size", "8vw")
+                .attr("class", "middle")
+                .attr("text-anchor", "start")
+                .text(zahlFehler);
+
+            var verb = treeVerben["$"+wort];
+            // wahl die richtige praeposition
+            var praepositionen = verb.map(function(d){return d.Präposition+" + "+d.Kasus});
+            var richtigePraep = Math.random() * praepositionen.length | 0;
+
+            currentWort = verb[richtigePraep];
+
+            // wahl die falsches praeposition
+            var restPraep = diff(praepositionenUndKasusArr, praepositionen);
+            var falschesPraep = Math.random() * restPraep.length | 0;
+
+            // die seite for richtige option wahlen, links < 0.5
+            if(Math.random() <=  0.5){
+                istLinksRichtig = true;
+                linkerText.text(praepositionen[richtigePraep]);
+                rechterText.text(restPraep[falschesPraep]);
+            }else{
+                istLinksRichtig = false;
+                linkerText.text(restPraep[falschesPraep]);
+                rechterText.text(praepositionen[richtigePraep]);
+            }
+
+            // der fallende Kreis bauen
+            enter = gWort.selectAll("g")
+                .data([praepositionen[richtigePraep]])
+                .enter()
+                .append("g");
+
+            enter.append("text")
+                .attr("id", "hourglass")
+                .attr("x", width/2 + margin.left)
+                .attr("y", margin.top)
+                .attr("class","fas colFigures middle")
+                .attr("text-anchor", "middle")
+                .attr("font-size", "12vw")
+                .text("\uf251");
+
+            enter.append("text")
+                .attr("text-anchor", "middle")
+                .style("font-family", "'Roboto', sans-serif")
+                .attr("font-size", "4vw")
+                .style("font-weight", "bold")
+                .attr("fill", "black")
+                .attr("x", width/2 + margin.left)
+                .text(function(d){return wort.replace(/sich|\(sich\)/g, "");});
+
+            enter.append("text")
+                .attr("text-anchor", "middle")
+                .style("font-family", "'Roboto', sans-serif")
+                .attr("font-size", "4vw")
+                .style("font-weight", "bold")
+                .attr("dy", "-1em")
+                .attr("fill", "black")
+                .attr("x", width/2 + margin.left)
+                .text(function(d){
+                    if(wort.includes("(sich)")){return "(sich)";}
+                    if(wort.includes("sich")){return "sich";}
+                    return "";});
+
+            time = 10000
+
+            enter.transition()
+                .duration(time)
+                .ease(d3.easeLinear)
+                .attr("transform", "translate(0,"+(height + margin.top + margin.bottom)+")");
+
+            enter.selectAll("#hourglass").transition()
+                .delay(time/3)
+                .text(function(){return "\uf252"})
+                .transition()
+                .delay(time/3)
+                .text(function(){return "\uf253"});
+        }
+
+        function showHappySmiley(showLeft, node){
+            var siegZiehen = svgGraph.append("text")
+                .attr("fill", "#3c763d")
+                .attr("class","far")
+                .attr("font-size", "8vw")
+                .attr("text-anchor", "middle")
+                .attr("x", d3.mouse(node)[0])
+                .attr("y", d3.mouse(node)[1])
+                .text("\uf118");
+            siegZiehen.transition()
+                .duration(1000)
+                .ease(d3.easeLinear)
+                .style("opacity", 0)
+                .attr("font-size", "16vw")
+                .remove();
+        }
+        function showSadSmiley(showLeft, node){
+            var siegZiehen = svgGraph.append("text")
+                .attr("fill", "#a94442")
+                .attr("class","far")
+                .attr("font-size", "8vw")
+                .attr("text-anchor", "middle")
+                .attr("x", d3.mouse(node)[0])
+                .attr("y", d3.mouse(node)[1])
+                .text("\uf119");
+            siegZiehen.transition()
+                .duration(1500)
+                .ease(d3.easeLinear)
+                .style("opacity", 0)
+                .attr("font-size", "16vw")
+                .remove();
+        }
+
+
+        function showAnswer(showFehlerOnLeft){
+            var posFehler = width/4 + margin.left;
+            if(!showFehlerOnLeft) posFehler = 3*width/4 + margin.left;
+
+            var posRichtig = 3*width/4 + margin.left;
+            if(!showFehlerOnLeft) posRichtig = width/4 + margin.left;
+
+            var fehlerZiehen = svgGraph.append("text")
+                .attr("fill", "#a94442")
+                .attr("class","far")
+                .attr("font-size", "16vw")
+                .attr("text-anchor", "middle")
+                .attr("x", posFehler)
+                .attr("y", height/3 + margin.top)
+                .text("\uf057");
+
+            var richtigZiehen = svgGraph.append("text")
+                .attr("fill", "#3c763d")
+                .attr("class","far")
+                .attr("font-size", "16vw")
+                .attr("text-anchor", "middle")
+                .attr("x", posRichtig)
+                .attr("y", height/3 + margin.top)
+                .text("\uf058");
+
+            var beispiel = svgGraph.append("text")
+                .attr("class","far")
+                .attr("font-size", "3vw")
+                .style("font-family", "'Roboto', sans-serif")
+                .attr("text-anchor", "middle")
+                .attr("dy", "1em")
+                .attr("x", width/2 + margin.left)
+                .attr("y", 3*height/4 + margin.top)
+                .text("z.B. "+currentWort.Beispiel);
+
+            var nochmal = svgGraph.append("text")
+                .attr("fill", "black")
+                .attr("class","fas")
+                .attr("font-size", "8vw")
+                .attr("text-anchor", "middle")
+                .attr("opacity", 0.7)
+                .attr("x", width/2+margin.left)
+                .attr("y", 1*height/3)
+                .text("\uf01e")
+                .on("click", function(){
+                    d3.selectAll("text").remove();
+                    gWort.selectAll("g").remove();
+                    currentIndex += 1
+                    neueWort(worteList[currentIndex])
+                });
+            d3.selectAll("#Fehlerzahl").text(zahlFehler);
+        }
+        var currentIndex = 0
+        neueWort(worteList[0])
     }
 
 });
