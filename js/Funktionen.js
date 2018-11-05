@@ -40,3 +40,13 @@ function shuffle(array) {
 
     return array;
 }
+
+var fxFehler = document.getElementById("FXfehler");
+var kurzSieg = document.getElementById("FXKurzSieg");
+var langSieg = document.getElementById("FXLangSieg");
+var hintergrundMusik = document.getElementById("FXHinterGrundMusik");
+function playFehler() {fxFehler.play();}
+function playkurzSieg() {kurzSieg.play();}
+function playlangSieg() {langSieg.play();}
+function playHintergrundMusik() {hintergrundMusik.play();}
+function stopHintergrundMusik() {hintergrundMusik.pause();hintergrundMusik.load();}

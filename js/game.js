@@ -109,6 +109,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .attr("class",function(d,i){return "g "+i;})
             .on("click", function(d){
                 if(d.type == "F"){
+                    playkurzSieg();
                     d3.select(this).transition()
                         .duration(500)
                         .ease(d3.easeLinear)
@@ -140,6 +141,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                     simulation.force("repulsion").strength(simulation.force("repulsion").strength()-100);
                     simulation.restart();
 
+
                     if(aktuelleGefunden == insgesamt){
                         praeposition.remove();
                         gWorte.remove();
@@ -149,6 +151,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                     }
 
                 }if(d.type == "R"){
+                    playFehler();
                     fehler += 1;
                     d3.select(this).transition()
                         .duration(80)
@@ -248,7 +251,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
     buildGame();
 
     var level1Beendet = function(){
-
+        playlangSieg();
         var gEndLevel = svgGraph.append("g");
         var titel = gEndLevel.append("text")
             .attr("id", "wahlTexte")
@@ -257,7 +260,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .attr("font-size", "6vw")
             .attr("text-anchor", "middle")
             .attr("class", "colText")
-            .text("Du hast das Level beendet!");
+            .text("Level beendet!");
 
         var nochmal = gEndLevel.append("text")
             .attr("fill", "black")
@@ -349,12 +352,15 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         var currentWort;
         var enter;
         var zahlFehler = 0;
+        var endLevel = false;
 
         gHintergrund.append("rect")
             .attr("class", "leftSide")
             .attr("width",width/2 + margin.left)
             .attr("height",height + margin.top + margin.bottom)
             .on("click", function(){
+                enter.interrupt().select("*").interrupt();
+                if(endLevel == true){return;}
                 if(istLinksRichtig){
                     showHappySmiley(true, this);
                     showAnswer(false)}
@@ -371,6 +377,8 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .attr("width",width/2 + margin.right)
             .attr("height",height + margin.top + margin.bottom)
             .on("click", function(){
+                enter.interrupt().select("*").interrupt();
+                if(endLevel == true){return;}
                 if(!istLinksRichtig){
                     showHappySmiley(false, this);
                     showAnswer(true)}
@@ -397,7 +405,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
 
         // Wahl ein wort
         function neueWort(wort){
-
+            endLevel = false;
             var linkerText = gHintergrund.append("text")
                 .attr("x", 0)
                 .attr("y", 3*height/4)
@@ -417,9 +425,9 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
 
             svgGraph.append("text")
                 .attr("id", "Fehlerzahl")
-                .attr("x", 0)
-                .attr("y", height)
-                .attr("dx","1em")
+                .attr("x", margin.left)
+                .attr("y", height + margin.bottom)
+                .attr("dx","0em")
                 .attr("font-size", "8vw")
                 .attr("class", "middle")
                 .attr("text-anchor", "start")
@@ -484,22 +492,31 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                     if(wort.includes("sich")){return "sich";}
                     return "";});
 
-            time = 10000
-
+            time = 7000;
+            playHintergrundMusik();
             enter.transition()
                 .duration(time)
                 .ease(d3.easeLinear)
-                .attr("transform", "translate(0,"+(height + margin.top + margin.bottom)+")");
+                .attr("transform", "translate(0,"+(height + margin.top + margin.bottom)+")")
+                .on("end", function(){
+                    if(endLevel == false){
+                        zahlFehler += 1;
+                        d3.selectAll("#Fehlerzahl").text(zahlFehler);
+                        showAnswer(!istLinksRichtig);
+                    }
+                });
 
             enter.selectAll("#hourglass").transition()
                 .delay(time/3)
                 .text(function(){return "\uf252"})
                 .transition()
                 .delay(time/3)
-                .text(function(){return "\uf253"});
+                .text(function(){return "\uf253"})
         }
 
         function showHappySmiley(showLeft, node){
+            playlangSieg();
+            stopHintergrundMusik();
             var siegZiehen = svgGraph.append("text")
                 .attr("fill", "#3c763d")
                 .attr("class","far")
@@ -516,6 +533,8 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                 .remove();
         }
         function showSadSmiley(showLeft, node){
+            playFehler();
+            stopHintergrundMusik();
             var siegZiehen = svgGraph.append("text")
                 .attr("fill", "#a94442")
                 .attr("class","far")
@@ -534,6 +553,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
 
 
         function showAnswer(showFehlerOnLeft){
+            endLevel = true;
             var posFehler = width/4 + margin.left;
             if(!showFehlerOnLeft) posFehler = 3*width/4 + margin.left;
 
@@ -580,12 +600,12 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                 .on("click", function(){
                     d3.selectAll("text").remove();
                     gWort.selectAll("g").remove();
-                    currentIndex += 1
+                    currentIndex += 1;
                     neueWort(worteList[currentIndex])
                 });
             d3.selectAll("#Fehlerzahl").text(zahlFehler);
         }
-        var currentIndex = 0
+        var currentIndex = 0;
         neueWort(worteList[0])
     }
 
