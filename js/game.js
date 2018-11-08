@@ -357,7 +357,12 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         gHintergrund.append("rect")
             .attr("class", "leftSide")
             .attr("width",width/2 + margin.left)
+            .attr("height",height + margin.top + margin.bottom);
+
+        svgGraph.append("rect")
+            .attr("width",width/2 + margin.left)
             .attr("height",height + margin.top + margin.bottom)
+            .style("opacity", 0)
             .on("click", function(){
                 enter.interrupt().select("*").interrupt();
                 if(endLevel == true){return;}
@@ -368,14 +373,21 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                     showSadSmiley(true, this);
                     zahlFehler += 1;
                     showAnswer(true);
-                    }
+                }
             });
 
         gHintergrund.append("rect")
             .attr("class", "rightSide")
             .attr("x", width/2 + margin.left)
             .attr("width",width/2 + margin.right)
+            .attr("height",height + margin.top + margin.bottom);
+
+
+        svgGraph.append("rect")
+            .attr("x", width/2 + margin.left)
+            .attr("width",width/2 + margin.right)
             .attr("height",height + margin.top + margin.bottom)
+            .style("opacity", 0)
             .on("click", function(){
                 enter.interrupt().select("*").interrupt();
                 if(endLevel == true){return;}
