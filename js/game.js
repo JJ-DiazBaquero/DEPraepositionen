@@ -154,7 +154,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                         var terms = data.synsets[0].terms;
                         var antworte = terms.map(function(d){return d.term});
                         var size = 3;
-                        if(antworte.length > worte.length*1.5){
+                        if(antworte.length > 6*1.5){
                             size = 2;
                         }
                         gAntworte = infoWindow.selectAll("text.Antworte")
@@ -172,6 +172,75 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
                     .catch(err => {
                         console.error('An error ocurred', err);
                     });
+            });
+    }
+
+    function showLevel1Instruccions(){
+        var gInstructions = svgGraph.append("g");
+        var background = gInstructions.append("rect")
+            .attr("width", width +margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("opacity", 0.8);
+
+        gInstructions.append("text")
+            .attr("x", (width + margin.left + margin.right)/2)
+            .attr("y", (height + margin.top)/2)
+            .attr("font-size", "6vw")
+            .attr("class", "colText")
+            .attr("text-anchor", "middle")
+            .text("Klickst auf die Verben");
+        gInstructions.append("text")
+            .attr("x", (width + margin.left + margin.right)/2)
+            .attr("y", (height + margin.top)/2)
+            .attr("dy", "1em")
+            .attr("font-size", "6vw")
+            .attr("text-anchor", "middle")
+            .attr("class", "colText")
+            .text("die nicht mit der Präposition passen");
+
+        gInstructions.append("text")
+            .attr("x", margin.left)
+            .attr("y", (height + margin.top + margin.bottom - 15))
+            .attr("font-size", "4vw")
+            .attr("text-anchor", "start")
+            .attr("class", "colText")
+            .text("Fehlerzählung");
+
+        gInstructions.append("text")
+            .attr("x",width + margin.left + margin.right)
+            .attr("y", (height + margin.top + margin.bottom - 15))
+            .attr("font-size", "4vw")
+            .attr("text-anchor", "end")
+            .attr("class", "colText")
+            .text("Verben zu finden");
+
+        gInstructions.append("text")
+            .attr("x",width + margin.left + margin.right)
+            .attr("y", (height + margin.top + margin.bottom - 15))
+            .attr("font-size", "4vw")
+            .attr("text-anchor", "end")
+            .attr("class", "colText")
+            .text("Verben zu finden");
+
+        gInstructions.append("text")
+            .attr("font-size", "3vw")
+            .attr("x", width + margin.left)
+            .attr("dx", "-2em")
+            .attr("text-anchor", "end")
+            .attr("dy", "1em")
+            .attr("class", "colText")
+            .text("Wenn du ein Worte nicht kenne:")
+
+        gInstructions.append("text")
+            .attr("class","far colText")
+            .attr("font-size", "8vw")
+            .attr("x", (width + margin.left + margin.right)/2)
+            .attr("y", (height + margin.top)/2)
+            .attr("dy", "2em")
+            .attr("text-anchor", "middle")
+            .text("\uf144")
+            .on("click", function(){
+                gInstructions.remove();
             });
     }
 
@@ -337,6 +406,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
     };
 
     buildGame();
+    showLevel1Instruccions();
 
     var level1Beendet = function(){
         playlangSieg();
@@ -719,8 +789,43 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             d3.selectAll("#Fehlerzahl").text(zahlFehler);
         }
         var currentIndex = 0;
-        neueWort(worteList[0])
+        function showLevel2Instruccions(){
+            var gInstructions = svgGraph.append("g");
+            gInstructions.append("rect")
+                .attr("width", width +margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("opacity", 0.8);
 
+            gInstructions.append("text")
+                .attr("x", (width + margin.left + margin.right)/2)
+                .attr("y", (height + margin.top)/2)
+                .attr("font-size", "6vw")
+                .attr("class", "colText")
+                .attr("text-anchor", "middle")
+                .text("Klickst auf die Farbe");
+            gInstructions.append("text")
+                .attr("x", (width + margin.left + margin.right)/2)
+                .attr("y", (height + margin.top)/2)
+                .attr("dy", "1em")
+                .attr("font-size", "6vw")
+                .attr("text-anchor", "middle")
+                .attr("class", "colText")
+                .text("die die richtige Präposition hat");
+
+            gInstructions.append("text")
+                .attr("class","far colText")
+                .attr("font-size", "8vw")
+                .attr("x", (width + margin.left + margin.right)/2)
+                .attr("y", (height + margin.top)/2)
+                .attr("dy", "2em")
+                .attr("text-anchor", "middle")
+                .text("\uf144")
+                .on("click", function(){
+                    gInstructions.remove();
+                    neueWort(worteList[0]);
+                });
+        }
+        showLevel2Instruccions();
     }
 
 });
