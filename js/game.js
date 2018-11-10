@@ -14,15 +14,6 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         .attr("height", height + margin.top + margin.bottom)
         .attr("class", "colBackground");
 
-    hintergrund.append("rect")
-        .attr("x", margin.left)
-        .attr("y", margin.top)
-        .attr("width", width)
-        .attr("height", height)
-        .style("stroke","black")
-        .style("stroke-width", "3")
-        .style("fill", "#00f0");
-
     // 4 bucktabe mit 32vw ist genug gross
     // 3 bucktabe mit 50vw ist zu gross
     // 2 bucktabe mit 65vw ist zu gross
@@ -98,6 +89,91 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
     var color = d3.scaleOrdinal(d3.schemeCategory10);
 
     var gWorte;
+    var infoWindow;
+    function showSynonyme(worte) {
+        infoWindow = svgGraph.append("g");
+        var background = infoWindow.append("rect")
+            .attr("x", margin.left)
+            .attr("y", margin.top)
+            .attr("width", width)
+            .attr("height", height)
+            .attr("class", "middle")
+            .style("stroke","black")
+            .style("stroke-width", "3")
+            .style("stroke-opacity", "0.6");
+
+        console.log(worte);
+
+        var title = infoWindow.append("text")
+            .attr("x", (width + margin.left + margin.right)/2)
+            .attr("y", margin.top)
+            .attr("dy", "1em")
+            .attr("font-size", "5vw")
+            .attr("text-anchor", "middle")
+            .attr("class", "colText")
+            .text("Synomyme von Openthesaurus.de");
+
+        var close = infoWindow.append("text")
+            .attr("x", width + margin.left)
+            .attr("y", margin.top)
+            .attr("dy", "0.8em")
+            .attr("class", "fas")
+            .attr("font-size", "10vw")
+            .attr("text-anchor", "end")
+            .attr("opacity", 0.4)
+            .text("\uf00d")
+            .on("click", function(){
+                infoWindow.remove();
+            });
+
+        var gAntworte = infoWindow.append("g");
+        var gWorte = infoWindow.selectAll("text.worte")
+            .data(worte).enter()
+            .append("text")
+            .attr("class", "worte")
+            .attr("font-size", "3vw")
+            .style("font-family", "'Roboto', sans-serif")
+            .attr("text-anchor", "start")
+            .attr("dy", function(d,i){return "-"+2*i+"em"})
+            .attr("x", margin.right+margin.left)
+            .attr("y", height+margin.top-10)
+            .text(function(d){return d})
+            .on("click", function (d) {
+                infoWindow.selectAll("text.worte")
+                    .style("font-weight", "normal");
+                d3.select(this)
+                    .style("font-weight", "bold");
+                gAntworte.remove();
+                gAntworte = infoWindow.append("g");
+                URL = "https://www.openthesaurus.de/synonyme/search?q="+d+"&format=application/json&substring=true";
+                console.log(URL);
+                fetch(URL)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        var terms = data.synsets[0].terms;
+                        var antworte = terms.map(function(d){return d.term});
+                        var size = 3;
+                        if(antworte.length > worte.length*1.5){
+                            size = 2;
+                        }
+                        gAntworte = infoWindow.selectAll("text.Antworte")
+                            .data(antworte).enter()
+                            .append("text")
+                            .attr("class", "worte")
+                            .attr("font-size", size+"vw")
+                            .style("font-family", "'Roboto', sans-serif")
+                            .attr("text-anchor", "start")
+                            .attr("dy", function(d,i){return "-"+i+"em"})
+                            .attr("x", (width+margin.right+margin.left)/2)
+                            .attr("y", height+margin.top-10)
+                            .text(function(d){return d});
+                    })
+                    .catch(err => {
+                        console.error('An error ocurred', err);
+                    });
+            });
+    }
 
     function buildGame(){
         gWorte = svgGraph.append("g")
@@ -246,6 +322,18 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
             .force("collide", d3.forceCollide(60))
             .force("repulsion",d3.forceManyBody().strength(-1300))
             .on("tick",ticked);
+
+        var siegFrage = svgGraph.append("text")
+            .attr("class","fas")
+            .attr("font-size", "8vw")
+            .attr("x", width + margin.left)
+            .style("opacity", 0.8)
+            .attr("text-anchor", "end")
+            .attr("dy", "1em")
+            .text("\uf02d")
+            .on("click", function(){
+                showSynonyme(worteListe.map(function(d){return d.wort}));
+            });
     };
 
     buildGame();
@@ -417,6 +505,19 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
 
         // Wahl ein wort
         function neueWort(wort){
+
+            var siegFrage = svgGraph.append("text")
+                .attr("class","fas")
+                .attr("font-size", "8vw")
+                .attr("x", width + margin.left)
+                .style("opacity", 0.8)
+                .attr("text-anchor", "end")
+                .attr("dy", "1em")
+                .text("\uf02d")
+                .on("click", function(){
+                showSynonyme([wort]);
+            });
+
             endLevel = false;
             var linkerText = gHintergrund.append("text")
                 .attr("x", 0)
@@ -619,6 +720,7 @@ d3.tsv("data/verbenListe.txt", function(error, data) {
         }
         var currentIndex = 0;
         neueWort(worteList[0])
+
     }
 
 });
